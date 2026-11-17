@@ -12,6 +12,9 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+// Admin UID Configuration
+const ADMIN_UID = "zHyIP5QcNAMj8Tdd40UJNjarkFH2";
+
 const form = document.querySelector("#registrationForm"),
   select = document.querySelector("#packageSelect");
 const recipient = document.querySelector("#recipient"),
