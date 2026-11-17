@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eaf7ff"><title>Class Party 2026 | CPCS</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="topbar"><a class="logo" href="./"><span>CP</span> CPCS</a><a href="admin.html">Admin</a></header>
+<main class="wrap">
+<section class="hero"><p class="eyebrow">STUDENT CONTRIBUTION PORTAL</p><h1>Class Party <em>2026</em></h1><p>Register your details, select a contribution package and join the celebration.</p></section>
+<section class="card">
+<h2>Student registration</h2><p class="muted">Please enter your own information accurately.</p>
+<form id="registrationForm">
+<label>Full name<input name="studentName" maxlength="80" required placeholder="Your full name"></label>
+<div class="two">
+<label>Class<select name="studentClass" required><option value="">Select class</option><option>8</option><option>9</option><option>10</option></select></label>
+<label>Version<select name="version" required><option value="">Select version</option><option value="EV">EV</option><option value="BM">BM</option></select></label>
+</div>
+<label>Contribution package<select name="packageId" id="packageSelect" required><option value="">Loading packages…</option></select></label>
+<div class="recipient"><span>Submission destination</span><b id="recipient">Choose a version</b></div>
+<button id="submitBtn">Submit registration <span>→</span></button><p id="formMsg" class="message" aria-live="polite"></p>
+<p class="tiny">Submitting creates a permanent registration record. Please contact an event admin if you need a correction.</p>
+</form></section>
+<section class="card"><div class="section-head"><div><h2>🏆 Contribution leaderboard</h2><p class="muted">Confirmed contributions only</p></div><span class="pill">LIVE</span></div>
+<div id="leaderboard" class="list"><p class="muted">Loading leaderboard…</p></div></section>
+<section class="card"><div class="section-head"><div><h2>📢 Notice board</h2><p class="muted">Event updates and absent notices</p></div></div><div id="notices" class="list"><p class="muted">Loading notices…</p></div></section>
+</main><footer>Class Party Contribution System · Developed by Alpha.HR</footer>
+<script type="module" src="app.js"></script></body></html>
