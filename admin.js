@@ -17,7 +17,7 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const ADMIN_UID = "REPLACE_WITH_ADMIN_AUTH_UID"; // Must match firestore.rules
+const ADMIN_UID = "zHyIP5QcNAMj8Tdd40UJNjarkFH2"; // Configured with your Admin UID
 const $ = (s) => document.querySelector(s);
 let records = [],
   packages = [],
