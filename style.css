@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #18374f;
+  background: #f3faff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% -5%, #d9f1ff, transparent 38%), #f5faff;
+}
+
+.topbar {
+  height: 64px;
+  padding: 0 max(20px, calc((100% - 850px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5f0f6;
+  background: #ffffffc9;
+  backdrop-filter: blur(12px);
+}
+
+.topbar a {
+  color: #287da7;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #173d59 !important;
+}
+
+.logo span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #128fcf, #65c8ef);
+  color: white;
+}
+
+.wrap {
+  width: min(100% - 30px, 680px);
+  margin: 35px auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 14px 10px 26px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #259bd1;
+  font-weight: 800;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 8vw, 48px);
+  letter-spacing: -2px;
+  margin: 8px 0;
+  color: #173b56;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: #199bd5;
+}
+
+.hero > p:last-child {
+  font-size: 13px;
+  color: #71889a;
+  line-height: 1.7;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e2eef5;
+  border-radius: 19px;
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 14px 45px #1c567710;
+}
+
+.card h2 {
+  font-size: 19px;
+  margin: 0 0 6px;
+}
+
+.muted {
+  font-size: 12px;
+  color: #8497a6;
+  margin: 0 0 18px;
+}
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #3c5a70;
+  margin: 15px 0;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  height: 46px;
+  margin-top: 8px;
+  padding: 0 12px;
+  border: 1px solid #dce9f1;
+  border-radius: 10px;
+  background: #fbfdff;
+  font: inherit;
+  font-size: 13px;
+  color: #23445c;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #25a4dc;
+  box-shadow: 0 0 0 3px #25a4dc1b;
+}
+
+.recipient {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px;
+  background: #eff9ff;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #668195;
+  margin: 8px 0 15px;
+}
+
+.recipient b {
+  color: #168fc5;
+}
+
+button {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(100deg, #168fcf, #39b5e7);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.message {
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.message.error {
+  color: #c23e4a;
+}
+
+.message.success {
+  color: #16814e;
+}
+
+.tiny {
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+  color: #91a1ad;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pill {
+  font-size: 9px;
+  font-weight: 800;
+  color: #168cbd;
+  background: #eaf8ff;
+  border-radius: 30px;
+  padding: 6px 9px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #edf3f7;
+}
+
+.rank {
+  width: 28px;
+  font-weight: 800;
+  color: #2299cf;
+}
+
+.item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-main b {
+  display: block;
+  font-size: 13px;
+}
+
+.item-main small {
+  font-size: 10px;
+  color: #8a9ba8;
+}
+
+.amount {
+  font-size: 13px;
+  font-weight: 800;
+  color: #168fc5;
+  white-space: nowrap;
+}
+
+.notice {
+  padding: 12px 0;
+  border-top: 1px solid #edf3f7;
+}
+
+.notice b {
+  font-size: 13px;
+}
+
+.notice p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #71889a;
+  margin: 5px 0;
+}
+
+.notice small {
+  font-size: 10px;
+  color: #9aaab5;
+}
+
+footer {
+  text-align: center;
+  color: #91a1ad;
+  font-size: 11px;
+  padding: 12px 15px 28px;
+}
+
+@media (max-width: 450px) {
+  .card {
+    padding: 19px;
+  }
+
+  .two {
+    gap: 8px;
+  }
+
+  .recipient {
+    flex-direction: column;
+  }
+}
