@@ -1,10 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Replace this value with the UID of the dedicated administrator account.
+    // Admin check using the specific UID
     function isAdmin() {
       return request.auth != null
-        && request.auth.uid == "REPLACE_WITH_ADMIN_AUTH_UID";
+        && request.auth.uid == "zHyIP5QcNAMj8Tdd40UJNjarkFH2";
     }
 
     function validName(value) {
