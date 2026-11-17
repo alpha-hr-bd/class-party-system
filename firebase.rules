@@ -1,0 +1,122 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace this value with the UID of the dedicated administrator account.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.uid == "REPLACE_WITH_ADMIN_AUTH_UID";
+    }
+
+    function validName(value) {
+      return value is string && value.size() >= 2 && value.size() <= 80;
+    }
+
+    function validPrice(value) {
+      return value is int && value >= 1 && value <= 100000000;
+    }
+
+    function validRegistration() {
+      let packagePath = /databases/$(database)/documents/packages/$(request.resource.data.packageId);
+      let settingsPath = /databases/$(database)/documents/publicSettings/main;
+      return request.resource.data.keys().hasOnly([
+          "studentName", "studentClass", "version", "packageId", "packageName",
+          "amount", "submitTo", "paymentStatus", "attendanceStatus", "createdAt"
+        ])
+        && validName(request.resource.data.studentName)
+        && request.resource.data.studentClass in ["8", "9", "10"]
+        && request.resource.data.version in ["EV", "BM"]
+        && request.resource.data.packageId is string
+        && request.resource.data.packageId.size() > 0
+        && exists(packagePath)
+        && get(packagePath).data.active == true
+        && request.resource.data.packageName == get(packagePath).data.name
+        && request.resource.data.amount == get(packagePath).data.amount
+        && validPrice(request.resource.data.amount)
+        && exists(settingsPath)
+        && request.resource.data.submitTo == (
+          request.resource.data.version == "EV"
+            ? get(settingsPath).data.evRecipient
+            : get(settingsPath).data.bmRecipient
+        )
+        && get(settingsPath).data.registrationOpen == true
+        && request.resource.data.paymentStatus == "pending"
+        && request.resource.data.attendanceStatus == "unmarked"
+        && request.resource.data.createdAt == request.time;
+    }
+
+    match /registrations/{registrationId} {
+      // Public can submit only a valid registration. Records are private.
+      allow create: if validRegistration();
+      allow read, update: if isAdmin();
+      allow delete: if false;
+    }
+
+    match /packages/{packageId} {
+      allow read: if isAdmin() || resource.data.active == true;
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(["name", "amount", "active", "createdAt", "updatedAt"])
+        && validName(request.resource.data.name)
+        && validPrice(request.resource.data.amount)
+        && request.resource.data.active is bool;
+      allow update: if isAdmin()
+        && request.resource.data.keys().hasOnly(["name", "amount", "active", "createdAt", "updatedAt"])
+        && validName(request.resource.data.name)
+        && validPrice(request.resource.data.amount)
+        && request.resource.data.active is bool;
+      allow delete: if false;
+    }
+
+    match /publicSettings/{settingsId} {
+      allow read: if settingsId == "main";
+      allow create, update: if isAdmin()
+        && settingsId == "main"
+        && request.resource.data.evRecipient is string
+        && request.resource.data.evRecipient.size() >= 2
+        && request.resource.data.evRecipient.size() <= 80
+        && request.resource.data.bmRecipient is string
+        && request.resource.data.bmRecipient.size() >= 2
+        && request.resource.data.bmRecipient.size() <= 80
+        && request.resource.data.registrationOpen is bool
+        && request.resource.data.leaderboardEnabled is bool
+        && request.resource.data.noticesEnabled is bool;
+      allow delete: if false;
+    }
+
+    match /publicLeaderboard/{registrationId} {
+      allow read: if resource.data.visible == true;
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasOnly([
+          "studentName", "studentClass", "version", "packageName",
+          "amount", "visible", "updatedAt"
+        ])
+        && validName(request.resource.data.studentName)
+        && request.resource.data.studentClass in ["8", "9", "10"]
+        && request.resource.data.version in ["EV", "BM"]
+        && request.resource.data.packageName is string
+        && request.resource.data.amount is number
+        && request.resource.data.amount >= 0
+        && request.resource.data.visible is bool
+        && (request.resource.data.visible == false || request.resource.data.amount > 0);
+      allow delete: if false;
+    }
+
+    match /publicNotices/{noticeId} {
+      allow read: if resource.data.active == true;
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasOnly([
+          "title", "body", "type", "active", "studentId", "studentName",
+          "studentClass", "version", "createdAt", "updatedAt"
+        ])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 2
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.body is string
+        && request.resource.data.body.size() <= 1000
+        && request.resource.data.type in ["general", "absent"]
+        && request.resource.data.active is bool;
+      allow delete: if false;
+    }
+
+    // All other collections are denied by default.
+  }
+}
